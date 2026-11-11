@@ -1,15 +1,11 @@
 [package]
-name = "OpenVDB-rs"
+name = "pyrite-vdb"
 version = "0.1.0"
 edition = "2021"
-description = "A Rust port of OpenVDB: sparse volumetric data structures and tools"
+description = "A Rusty port of OpenVDB and NanoVDB: sparse volumetric data trees and algorithms"
 license = "MIT"
-repository = "https://github.com/OxidePicturesAlliance/vdb"
+repository = "https://github.com/eggdropsoap/pyrite-vdb.git"
 exclude = ["pixi.toml", "pixi.lock"]
-
-# Keep the library importable as `vdb` regardless of the package name.
-[lib]
-name = "vdb"
 
 [features]
 default = ["read", "write", "nanovdb"]
