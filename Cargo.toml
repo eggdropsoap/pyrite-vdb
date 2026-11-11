@@ -8,10 +8,12 @@ homepage = "https://github.com/eggdropsoap/pyrite-vdb.git"
 repository = "https://github.com/eggdropsoap/pyrite-vdb.git"
 readme = "README.md"
 exclude = [
+    ".github",
     "pixi.toml",
     "pixi.lock",
     "benches",
-    "tests"]
+    "tests"
+]
 
 [features]
 default = ["read", "write", "nanovdb"]
