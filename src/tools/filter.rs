@@ -8,8 +8,8 @@
 //! values.
 //!
 //! ```
-//! use vdb::prelude::*;
-//! use vdb::tools::filter::Filter;
+//! use pyrite_vdb::prelude::*;
+//! use pyrite_vdb::tools::filter::Filter;
 //! let mut grid = FloatGrid::new(0.0);
 //! grid.tree_mut().fill(&CoordBBox::from_coords(0, 0, 0, 7, 7, 7), 1.0, true);
 //! grid.tree_mut().voxelize_active_tiles();

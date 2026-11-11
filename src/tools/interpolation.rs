@@ -11,9 +11,9 @@
 //! derives smooth blending weights from a mask grid.
 //!
 //! ```
-//! use vdb::prelude::*;
-//! use vdb::tree::FloatTree;
-//! use vdb::tools::interpolation::{BoxSampler, Sampler};
+//! use pyrite_vdb::prelude::*;
+//! use pyrite_vdb::tree::FloatTree;
+//! use pyrite_vdb::tools::interpolation::{BoxSampler, Sampler};
 //! let mut tree = FloatTree::new(0.0);
 //! tree.set_value(&Coord::new(1, 0, 0), 2.0);
 //! let v = BoxSampler::sample(&tree, Vec3d::new(0.5, 0.0, 0.0));

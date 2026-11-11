@@ -18,26 +18,26 @@
 use std::hint::black_box;
 use std::time::Instant;
 
-use vdb::io::{Compression, WriteOptions};
-use vdb::math::{Ray, Transform, Vec3d, Vec3f};
-use vdb::points::codec::Codec;
-use vdb::points::point_conversion::create_point_data_grid;
-use vdb::prelude::*;
-use vdb::tools::composite::{csg_difference, csg_union};
-use vdb::tools::filter::Filter;
-use vdb::tools::grid_operators::{gradient, laplacian, mean_curvature};
-use vdb::tools::interpolation::{BoxSampler, GridSampler};
-use vdb::tools::level_set_filter::LevelSetFilter;
-use vdb::tools::level_set_measure::LevelSetMeasure;
-use vdb::tools::level_set_sphere::{create_level_set, create_level_set_sphere};
-use vdb::tools::mesh_to_volume::mesh_to_level_set;
-use vdb::tools::morphology::{dilate_active_values, erode_active_values, NearestNeighbors, TilePolicy};
-use vdb::tools::particles_to_level_set::{particles_to_sdf, SimpleParticleList};
-use vdb::tools::point_index_grid::create_point_index_grid;
-use vdb::tools::ray_intersector::LevelSetRayIntersector;
-use vdb::tools::signed_flood_fill::signed_flood_fill;
-use vdb::tools::volume_to_mesh::volume_to_mesh_adaptive;
-use vdb::AnyGrid;
+use pyrite_vdb::io::{Compression, WriteOptions};
+use pyrite_vdb::math::{Ray, Transform, Vec3d, Vec3f};
+use pyrite_vdb::points::codec::Codec;
+use pyrite_vdb::points::point_conversion::create_point_data_grid;
+use pyrite_vdb::prelude::*;
+use pyrite_vdb::tools::composite::{csg_difference, csg_union};
+use pyrite_vdb::tools::filter::Filter;
+use pyrite_vdb::tools::grid_operators::{gradient, laplacian, mean_curvature};
+use pyrite_vdb::tools::interpolation::{BoxSampler, GridSampler};
+use pyrite_vdb::tools::level_set_filter::LevelSetFilter;
+use pyrite_vdb::tools::level_set_measure::LevelSetMeasure;
+use pyrite_vdb::tools::level_set_sphere::{create_level_set, create_level_set_sphere};
+use pyrite_vdb::tools::mesh_to_volume::mesh_to_level_set;
+use pyrite_vdb::tools::morphology::{dilate_active_values, erode_active_values, NearestNeighbors, TilePolicy};
+use pyrite_vdb::tools::particles_to_level_set::{particles_to_sdf, SimpleParticleList};
+use pyrite_vdb::tools::point_index_grid::create_point_index_grid;
+use pyrite_vdb::tools::ray_intersector::LevelSetRayIntersector;
+use pyrite_vdb::tools::signed_flood_fill::signed_flood_fill;
+use pyrite_vdb::tools::volume_to_mesh::volume_to_mesh_adaptive;
+use pyrite_vdb::AnyGrid;
 
 // Shared parameters (keep in sync with compare.cpp).
 const VOXEL: f32 = 0.004; // sphere of radius 1 → 250 voxels
@@ -228,7 +228,7 @@ fn main() {
         let opts = WriteOptions::with_compression(comp);
         let write = || {
             let mut buf = Vec::new();
-            vdb::io::write_stream(&mut buf, &fog_any, &MetaMap::new(), &opts).unwrap();
+            pyrite_vdb::io::write_stream(&mut buf, &fog_any, &MetaMap::new(), &opts).unwrap();
             buf
         };
         ctx.bench(&format!("write_{label}"), || (), |_| write(), |_, b| format!("{} bytes", b.len()));
@@ -236,7 +236,7 @@ fn main() {
         ctx.bench(
             &format!("read_{label}"),
             || (),
-            |_| vdb::io::read_stream(&bytes[..]).unwrap().1,
+            |_| pyrite_vdb::io::read_stream(&bytes[..]).unwrap().1,
             |_, g| {
                 let g = g[0].as_float().unwrap();
                 format!("{} {:.6e}", g.active_voxel_count(), sum_active(g))

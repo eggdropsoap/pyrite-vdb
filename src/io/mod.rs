@@ -32,8 +32,8 @@
 //!
 //! ```
 //! # #[cfg(all(feature = "read", feature = "write"))] {
-//! use vdb::prelude::*;
-//! use vdb::io;
+//! use pyrite_vdb::prelude::*;
+//! use pyrite_vdb::io;
 //!
 //! let mut grid = FloatGrid::new(0.0).with_name("density");
 //! grid.set_value(&Coord::new(1, 2, 3), 0.5);
@@ -46,7 +46,7 @@
 //! assert_eq!(density.get_value(&Coord::new(1, 2, 3)), 0.5);
 //! # std::fs::remove_file(&path).ok();
 //! # }
-//! # Ok::<(), vdb::io::Error>(())
+//! # Ok::<(), pyrite_vdb::io::Error>(())
 //! ```
 
 #![forbid(unsafe_code)]

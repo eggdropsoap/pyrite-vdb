@@ -10,8 +10,8 @@
 //! * [`VolumeRender`] — single-scattering rendering of density volumes.
 //!
 //! ```no_run
-//! use vdb::prelude::*;
-//! use vdb::tools::ray_tracer::{ray_trace, DiffuseShader, Film, PerspectiveCamera};
+//! use pyrite_vdb::prelude::*;
+//! use pyrite_vdb::tools::ray_tracer::{ray_trace, DiffuseShader, Film, PerspectiveCamera};
 //! # fn sphere() -> FloatGrid { unimplemented!() }
 //! let grid = sphere();
 //! let mut film = Film::new(320, 240);

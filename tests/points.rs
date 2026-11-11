@@ -9,11 +9,11 @@ mod common;
 use common::*;
 use std::fmt::Write as _;
 use std::path::Path;
-use vdb::io::{self, Compression, File, WriteOptions};
-use vdb::math::{Transform, Vec3d, Vec3f};
-use vdb::metadata::{MetaMap, MetaValue};
-use vdb::points::{self, *};
-use vdb::AnyGrid;
+use pyrite_vdb::io::{self, Compression, File, WriteOptions};
+use pyrite_vdb::math::{Transform, Vec3d, Vec3f};
+use pyrite_vdb::metadata::{MetaMap, MetaValue};
+use pyrite_vdb::points::{self, *};
+use pyrite_vdb::AnyGrid;
 
 const REFERENCE_FILES: &[&str] =
     &["points_attrs", "points_none", "points_zip", "points_codecs", "points_misc", "points_scatter"];
@@ -319,7 +319,7 @@ fn rust_grids(large: bool) -> Vec<AnyGrid> {
         .collect();
     let mut out = Vec::new();
     let transform = Transform::linear(0.5);
-    let index = vdb::tools::point_index_grid::create_point_index_grid(&pos, &transform);
+    let index = pyrite_vdb::tools::point_index_grid::create_point_index_grid(&pos, &transform);
     for (k, codec) in
         [Codec::Null, Codec::FIXED_POINT_16, Codec::FIXED_POINT_8, Codec::Truncate].into_iter().enumerate()
     {
@@ -433,10 +433,10 @@ fn point_index_grid_from_cpp() {
     assert_same_dump(&dump_index_file(&path), &expected, "points_index");
     let grid = io::read_grid(&path, "pindex").unwrap().into_point_index().unwrap();
     let pos: Vec<Vec3f> = (0..N).map(position).collect();
-    assert!(vdb::tools::point_index_grid::is_valid_partition(&pos, &grid));
+    assert!(pyrite_vdb::tools::point_index_grid::is_valid_partition(&pos, &grid));
     // The same partition is built in Rust, and it round-trips through a file.
     let rust =
-        vdb::tools::point_index_grid::create_point_index_grid(&pos, &Transform::linear(0.25)).with_name("pindex");
+        pyrite_vdb::tools::point_index_grid::create_point_index_grid(&pos, &Transform::linear(0.25)).with_name("pindex");
     let out = scratch_dir("points_index").join("index.vdb");
     io::write_file(&out, &[rust.into()], &MetaMap::new()).unwrap();
     assert_same_dump(&dump_index_file(&out), &expected, "rust points_index");
@@ -481,7 +481,7 @@ fn cpp_reads_rust_points() {
     // Point index grids.
     let pos: Vec<Vec3f> =
         (0..5000).map(|i| Vec3f::new((i as f32 * 0.37).sin() * 9.0, (i % 97) as f32 * 0.1, 0.0)).collect();
-    let index = vdb::tools::point_index_grid::create_point_index_grid(&pos, &Transform::linear(0.3)).with_name("idx");
+    let index = pyrite_vdb::tools::point_index_grid::create_point_index_grid(&pos, &Transform::linear(0.3)).with_name("idx");
     for (k, opts) in all_options().iter().enumerate() {
         let path = dir.join(format!("index_{}.vdb", k));
         io::write_file_with_options(&path, &[index.clone().into()], &MetaMap::new(), opts).unwrap();
@@ -495,9 +495,9 @@ fn cpp_reads_rust_points() {
 /// written by points_ref with the same parameters).
 #[test]
 fn scatter_matches_cpp() {
-    let mut density = vdb::FloatGrid::new(0.0).with_transform(Transform::linear(0.5));
-    density.tree_mut().fill(&vdb::CoordBBox::from_coords(0, 0, 0, 9, 9, 9), 0.5, true);
-    density.set_value(&vdb::Coord::new(-20, 3, 5), 2.0);
+    let mut density = pyrite_vdb::FloatGrid::new(0.0).with_transform(Transform::linear(0.5));
+    density.tree_mut().fill(&pyrite_vdb::CoordBBox::from_coords(0, 0, 0, 9, 9, 9), 0.5, true);
+    density.set_value(&pyrite_vdb::Coord::new(-20, 3, 5), 2.0);
     let mut uniform = uniform_point_scatter(&density, 300, 3, 0.5, Codec::Null).unwrap();
     uniform.set_name("uniform");
     let mut dense = dense_uniform_point_scatter(&density, 0.5, 1, 1.0, Codec::Null).unwrap();
@@ -513,7 +513,7 @@ fn scatter_matches_cpp() {
 }
 
 /// Compare two level sets: same active voxels, values within `tol`.
-fn assert_same_sdf(a: &vdb::FloatGrid, b: &vdb::FloatGrid, tol: f32, what: &str) {
+fn assert_same_sdf(a: &pyrite_vdb::FloatGrid, b: &pyrite_vdb::FloatGrid, tol: f32, what: &str) {
     assert_eq!(a.active_voxel_count(), b.active_voxel_count(), "{}: active voxel count", what);
     assert_eq!(a.background(), b.background(), "{}: background", what);
     let acc = b.accessor();

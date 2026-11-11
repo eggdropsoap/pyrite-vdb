@@ -1,14 +1,14 @@
 //! Tests of the NanoVDB port against reference files written by C++ NanoVDB 32.9.2
 //! (`tests/data/cpp/nanovdb_ref.cpp`, see `tests/data/cpp/README.md`).
 
-use vdb::grid::{BoolGrid, DoubleGrid, FloatGrid, Grid, GridClass as VdbGridClass, Int32Grid, Int64Grid};
-use vdb::math::{Coord, CoordBBox, Transform, Vec3d, Vec3f};
-use vdb::nanovdb::io::{self, Codec};
-use vdb::nanovdb::{
+use pyrite_vdb::grid::{BoolGrid, DoubleGrid, FloatGrid, Grid, GridClass as VdbGridClass, Int32Grid, Int64Grid};
+use pyrite_vdb::math::{Coord, CoordBBox, Transform, Vec3d, Vec3f};
+use pyrite_vdb::nanovdb::io::{self, Codec};
+use pyrite_vdb::nanovdb::{
     self, create_nano_grid, nano_to_openvdb, AbsDiff, BuildType, CheckMode, CreateNanoGrid, Fp16, Fp4, Fp8, FpN,
     GridHandle, GridType, StatsMode, ValueIndex, ValueMask, ValueOnIndex,
 };
-use vdb::types::Value;
+use pyrite_vdb::types::Value;
 
 fn data(name: &str) -> std::path::PathBuf {
     std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/data/nanovdb").join(name)
@@ -253,7 +253,7 @@ fn multi_grid_segment_and_raw_buffers() {
 
 #[test]
 fn primitives_match_cpp_byte_for_byte() {
-    use vdb::nanovdb::primitives::*;
+    use pyrite_vdb::nanovdb::primitives::*;
     let cpp = io::read_grids(data("primitives.nvdb")).unwrap();
     let c = Vec3d::new(1.5, 2.0, -3.0);
     let o = Vec3d::new(0.0, 0.0, 0.0);
@@ -364,7 +364,7 @@ fn values_match_source_grids() {
         assert_eq!(a, sa);
         assert_eq!(on_chan[j as usize], if sa { sv } else { *f.background() }, "on-index value at {:?}", c);
     }
-    let back = vdb::nanovdb::index_to_openvdb(&on, &on_chan, nanovdb::GridClass::FogVolume, Some("back"));
+    let back = pyrite_vdb::nanovdb::index_to_openvdb(&on, &on_chan, nanovdb::GridClass::FogVolume, Some("back"));
     for (c, v) in f.tree().active_voxels() {
         assert_eq!(back.tree().get_value(&c), v);
     }
@@ -511,9 +511,9 @@ fn io_round_trip_all_codecs() {
 
 #[test]
 fn samplers_and_hdda_match_cpp() {
-    use vdb::nanovdb::hdda::{first_active, zero_crossing, Ray};
-    use vdb::nanovdb::sampler::*;
-    let handle = vdb::nanovdb::primitives::create_level_set_sphere::<f32>(
+    use pyrite_vdb::nanovdb::hdda::{first_active, zero_crossing, Ray};
+    use pyrite_vdb::nanovdb::sampler::*;
+    let handle = pyrite_vdb::nanovdb::primitives::create_level_set_sphere::<f32>(
         5.0,
         Vec3d::new(1.5, 2.0, -3.0),
         0.5,
@@ -658,7 +658,7 @@ fn cpp_reads_rust_nvdb_files() {
     let mut handles: Vec<GridHandle> = rust_types().into_iter().map(|(_, h)| h).collect();
     let g = band_grid();
     handles.push(CreateNanoGrid::new(&g).checksum(CheckMode::Full).dither(true).get_handle_fpn(AbsDiff::default()));
-    handles.push(vdb::nanovdb::primitives::create_level_set_torus::<f32>(
+    handles.push(pyrite_vdb::nanovdb::primitives::create_level_set_torus::<f32>(
         6.0,
         2.0,
         Vec3d::splat(0.0),

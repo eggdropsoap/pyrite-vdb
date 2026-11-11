@@ -144,12 +144,12 @@ fn read_sequential<R: Read>(r: &mut Reader<R>, header: &FileHeader) -> Result<Se
 /// when opened.
 ///
 /// ```no_run
-/// let file = vdb::io::File::open("smoke.vdb")?;
+/// let file = pyrite_vdb::io::File::open("smoke.vdb")?;
 /// for name in file.grid_names() {
 ///     println!("{}", name);
 /// }
 /// let density = file.read_grid("density")?;
-/// # Ok::<(), vdb::io::Error>(())
+/// # Ok::<(), pyrite_vdb::io::Error>(())
 /// ```
 #[cfg(feature = "read")]
 #[derive(Debug)]

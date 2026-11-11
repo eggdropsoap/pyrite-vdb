@@ -24,7 +24,7 @@
 //! are only pulled in by these two features.
 //!
 //! ```
-//! use vdb::prelude::*;
+//! use pyrite_vdb::prelude::*;
 //!
 //! let mut grid = FloatGrid::new(0.0);
 //! grid.set_name("density");
@@ -38,15 +38,15 @@
 //! Building a level set and writing it to a `.vdb` file that C++ OpenVDB can read:
 //!
 //! ```
-//! use vdb::prelude::*;
-//! use vdb::tools::level_set_sphere::create_level_set_sphere;
+//! use pyrite_vdb::prelude::*;
+//! use pyrite_vdb::tools::level_set_sphere::create_level_set_sphere;
 //!
 //! # #[cfg(all(feature = "read", feature = "write"))]
 //! # fn main() -> Result<(), Box<dyn std::error::Error>> {
 //! let sphere: FloatGrid = create_level_set_sphere(1.0, Vec3f::zero(), 0.05, 3.0, true)?;
 //! let path = std::env::temp_dir().join("vdb_doctest_sphere.vdb");
-//! vdb::io::write_file(&path, &[sphere.clone().into()], &MetaMap::new())?;
-//! let (_meta, grids) = vdb::io::read_file(&path)?;
+//! pyrite_vdb::io::write_file(&path, &[sphere.clone().into()], &MetaMap::new())?;
+//! let (_meta, grids) = pyrite_vdb::io::read_file(&path)?;
 //! assert_eq!(grids[0].active_voxel_count(), sphere.active_voxel_count());
 //! # std::fs::remove_file(&path).ok();
 //! # Ok(())

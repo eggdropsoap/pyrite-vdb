@@ -4,8 +4,8 @@
 //! cargo run --release --example ray_trace_sphere [output.ppm] [width] [height]
 //! ```
 
-use vdb::prelude::*;
-use vdb::tools::ray_tracer::{ray_trace, DiffuseShader, Film, NormalShader, PerspectiveCamera, Rgba, ShaderColor};
+use pyrite_vdb::prelude::*;
+use pyrite_vdb::tools::ray_tracer::{ray_trace, DiffuseShader, Film, NormalShader, PerspectiveCamera, Rgba, ShaderColor};
 
 /// Build a narrow-band signed distance field of a sphere voxel by voxel.
 fn sphere(radius: f64, center: Vec3d, voxel_size: f64, half_width: f64) -> FloatGrid {

@@ -2,13 +2,13 @@
 //!
 //! Run with `cargo run --release --example level_set_sphere`.
 
-use vdb::math::Vec3f;
-use vdb::tools::composite::csg_union;
-use vdb::tools::count::{count_active_tiles, min_max};
-use vdb::tools::diagnostics::check_level_set;
-use vdb::tools::level_set_measure::LevelSetMeasure;
-use vdb::tools::level_set_sphere::create_level_set_sphere;
-use vdb::tools::statistics::{statistics, ValueIterKind};
+use pyrite_vdb::math::Vec3f;
+use pyrite_vdb::tools::composite::csg_union;
+use pyrite_vdb::tools::count::{count_active_tiles, min_max};
+use pyrite_vdb::tools::diagnostics::check_level_set;
+use pyrite_vdb::tools::level_set_measure::LevelSetMeasure;
+use pyrite_vdb::tools::level_set_sphere::create_level_set_sphere;
+use pyrite_vdb::tools::statistics::{statistics, ValueIterKind};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let voxel_size = 0.05;

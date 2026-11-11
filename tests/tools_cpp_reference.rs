@@ -4,20 +4,20 @@
 //! Each check compares active voxel counts, leaf and tile counts, and the sum of active
 //! values (tiles weighted by their voxel count).
 
-use vdb::grid::Grid;
-use vdb::math::{Coord, CoordBBox, Transform, Vec3f};
-use vdb::tools::change_background::*;
-use vdb::tools::composite::*;
-use vdb::tools::count::*;
-use vdb::tools::diagnostics::*;
-use vdb::tools::level_set_measure::*;
-use vdb::tools::level_set_sphere::*;
-use vdb::tools::level_set_util::*;
-use vdb::tools::morphology::*;
-use vdb::tools::prune::*;
-use vdb::tools::statistics::*;
-use vdb::tools::topology_to_level_set::*;
-use vdb::types::Value;
+use pyrite_vdb::grid::Grid;
+use pyrite_vdb::math::{Coord, CoordBBox, Transform, Vec3f};
+use pyrite_vdb::tools::change_background::*;
+use pyrite_vdb::tools::composite::*;
+use pyrite_vdb::tools::count::*;
+use pyrite_vdb::tools::diagnostics::*;
+use pyrite_vdb::tools::level_set_measure::*;
+use pyrite_vdb::tools::level_set_sphere::*;
+use pyrite_vdb::tools::level_set_util::*;
+use pyrite_vdb::tools::morphology::*;
+use pyrite_vdb::tools::prune::*;
+use pyrite_vdb::tools::statistics::*;
+use pyrite_vdb::tools::topology_to_level_set::*;
+use pyrite_vdb::types::Value;
 
 fn sum_on<T: Value + Into<f64>>(g: &Grid<T>) -> f64 {
     let mut s = 0.0;

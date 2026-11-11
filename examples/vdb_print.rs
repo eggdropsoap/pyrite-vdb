@@ -5,9 +5,9 @@
 //! ```
 
 use std::process::ExitCode;
-use vdb::io::{File, GridMetadata};
-use vdb::metadata::MetaMap;
-use vdb::{with_any_grid, AnyGrid, Coord};
+use pyrite_vdb::io::{File, GridMetadata};
+use pyrite_vdb::metadata::MetaMap;
+use pyrite_vdb::{with_any_grid, AnyGrid, Coord};
 
 const INDENT: &str = "   ";
 
@@ -188,7 +188,7 @@ fn print_long(file: &File, grids: &[(GridMetadata, Option<AnyGrid>)]) {
 /// A file and its grids (`None` for unsupported grid types).
 type Loaded = (File, Vec<(GridMetadata, Option<AnyGrid>)>);
 
-fn load(path: &str) -> vdb::io::Result<Loaded> {
+fn load(path: &str) -> pyrite_vdb::io::Result<Loaded> {
     let file = File::open(path)?;
     let metas = file.read_all_grid_metadata()?;
     let mut grids = Vec::with_capacity(metas.len());
@@ -222,8 +222,8 @@ fn main() -> ExitCode {
         }
     }
     if version {
-        println!("OpenVDB library version: {}.{}", vdb::io::LIBRARY_MAJOR_VERSION, vdb::io::LIBRARY_MINOR_VERSION);
-        println!("OpenVDB file format version: {}", vdb::io::FILE_VERSION);
+        println!("OpenVDB library version: {}.{}", pyrite_vdb::io::LIBRARY_MAJOR_VERSION, pyrite_vdb::io::LIBRARY_MINOR_VERSION);
+        println!("OpenVDB file format version: {}", pyrite_vdb::io::FILE_VERSION);
         if files.is_empty() {
             return ExitCode::SUCCESS;
         }

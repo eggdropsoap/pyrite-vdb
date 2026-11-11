@@ -9,10 +9,10 @@
 //! ```
 
 use std::io::Write;
-use vdb::math::{Transform, Vec3f};
-use vdb::tools::mesh_to_volume::mesh_to_level_set;
-use vdb::tools::volume_to_mesh::volume_to_mesh_adaptive;
-use vdb::Grid;
+use pyrite_vdb::math::{Transform, Vec3f};
+use pyrite_vdb::tools::mesh_to_volume::mesh_to_level_set;
+use pyrite_vdb::tools::volume_to_mesh::volume_to_mesh_adaptive;
+use pyrite_vdb::Grid;
 
 /// A torus with major radius `big_r` and minor radius `r` as a quad mesh.
 fn torus(big_r: f32, r: f32, n_major: u32, n_minor: u32) -> (Vec<Vec3f>, Vec<[u32; 4]>) {

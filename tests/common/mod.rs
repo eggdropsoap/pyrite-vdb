@@ -7,12 +7,12 @@
 
 use std::fmt::Write as _;
 use std::path::{Path, PathBuf};
-use vdb::io::File;
-use vdb::math::{Vec3, Vec3d, Vec3f, Vec3i};
-use vdb::metadata::{MetaMap, MetaValue};
-use vdb::tree::Tree;
-use vdb::types::Value;
-use vdb::AnyGrid;
+use pyrite_vdb::io::File;
+use pyrite_vdb::math::{Vec3, Vec3d, Vec3f, Vec3i};
+use pyrite_vdb::metadata::{MetaMap, MetaValue};
+use pyrite_vdb::tree::Tree;
+use pyrite_vdb::types::Value;
+use pyrite_vdb::AnyGrid;
 
 /// Path of a file in tests/data.
 pub fn data(name: &str) -> PathBuf {
@@ -35,7 +35,7 @@ pub fn mix(mut h: u64) -> u64 {
     h
 }
 
-fn coord_hash(c: vdb::Coord) -> u64 {
+fn coord_hash(c: pyrite_vdb::Coord) -> u64 {
     let mut h = mix(c[0] as u32 as u64);
     h = mix(h ^ c[1] as u32 as u64);
     mix(h ^ c[2] as u32 as u64)

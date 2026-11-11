@@ -3,21 +3,21 @@
 //! cancelled-tile pruning, tree merge policies, flood filling, pruning and active-tile
 //! queries.
 
-use vdb::grid::Grid;
-use vdb::math::{Coord, CoordBBox, Vec3f};
-use vdb::tools::activate::*;
-use vdb::tools::composite::*;
-use vdb::tools::count::*;
-use vdb::tools::dense::*;
-use vdb::tools::diagnostics::*;
-use vdb::tools::find_active_values::*;
-use vdb::tools::level_set_platonic::*;
-use vdb::tools::level_set_sphere::*;
-use vdb::tools::level_set_util::*;
-use vdb::tools::prune::*;
-use vdb::tools::signed_flood_fill::*;
-use vdb::tools::tree_ops::{topology_union, MergePolicy};
-use vdb::tree::{Node, Tree};
+use pyrite_vdb::grid::Grid;
+use pyrite_vdb::math::{Coord, CoordBBox, Vec3f};
+use pyrite_vdb::tools::activate::*;
+use pyrite_vdb::tools::composite::*;
+use pyrite_vdb::tools::count::*;
+use pyrite_vdb::tools::dense::*;
+use pyrite_vdb::tools::diagnostics::*;
+use pyrite_vdb::tools::find_active_values::*;
+use pyrite_vdb::tools::level_set_platonic::*;
+use pyrite_vdb::tools::level_set_sphere::*;
+use pyrite_vdb::tools::level_set_util::*;
+use pyrite_vdb::tools::prune::*;
+use pyrite_vdb::tools::signed_flood_fill::*;
+use pyrite_vdb::tools::tree_ops::{topology_union, MergePolicy};
+use pyrite_vdb::tree::{Node, Tree};
 
 fn close(a: f64, b: f64, rel: f64) -> bool {
     (a - b).abs() <= rel * b.abs().max(1e-12)
@@ -246,8 +246,8 @@ fn platonic_vs_mesh_to_level_set() {
     let tet = create_level_set_tetrahedron::<f32>(1.0, Vec3f::new(0.1, 0.2, -0.05), 0.05, 3.0).unwrap();
     assert!((tet.get_value(&Coord::new(0, 0, 0)) - -0.13333).abs() < 1e-5);
     let bx = create_level_set_box::<f32>(
-        vdb::math::Vec3d::new(-1.03f32 as f64, -0.5f32 as f64, -0.77f32 as f64),
-        vdb::math::Vec3d::new(1.0, 0.6f32 as f64, 0.8f32 as f64),
+        pyrite_vdb::math::Vec3d::new(-1.03f32 as f64, -0.5f32 as f64, -0.77f32 as f64),
+        pyrite_vdb::math::Vec3d::new(1.0, 0.6f32 as f64, 0.8f32 as f64),
         0.1,
         3.0,
     )

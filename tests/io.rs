@@ -9,12 +9,12 @@
 mod common;
 
 use common::*;
-use vdb::io::{self, Compression, File, WriteOptions};
-use vdb::math::{Axis, Mat4d, Vec3d, Vec3f, Vec3i};
-use vdb::metadata::{MetaMap, MetaValue};
-use vdb::prelude::*;
-use vdb::tree::RootEntry;
-use vdb::AnyGrid;
+use pyrite_vdb::io::{self, Compression, File, WriteOptions};
+use pyrite_vdb::math::{Axis, Mat4d, Vec3d, Vec3f, Vec3i};
+use pyrite_vdb::metadata::{MetaMap, MetaValue};
+use pyrite_vdb::prelude::*;
+use pyrite_vdb::tree::RootEntry;
+use pyrite_vdb::AnyGrid;
 
 const REFERENCE_FILES: &[&str] = &[
     "sphere",
@@ -342,7 +342,7 @@ fn point_data_grids_are_loaded() {
     let gm = file.read_grid_metadata("points").unwrap();
     assert_eq!(gm.metadata.get("file_voxel_count"), Some(&MetaValue::Int64(4)));
     let points = file.read_grid("points").unwrap();
-    assert_eq!(vdb::points::point_count(points.as_point_data().unwrap().tree()), 4);
+    assert_eq!(pyrite_vdb::points::point_count(points.as_point_data().unwrap().tree()), 4);
 
     let (_, grids) = io::read_file(data("points.vdb")).unwrap();
     assert_eq!(grids.len(), 2);
@@ -750,7 +750,7 @@ fn roundtrip_half_floats() {
     let dir = scratch_dir("half");
     let mut grids = sample_grids();
     for g in grids.iter_mut() {
-        vdb::with_any_grid!(g, g => g.set_save_float_as_half(true));
+        pyrite_vdb::with_any_grid!(g, g => g.set_save_float_as_half(true));
     }
     for opts in all_options() {
         let path = dir.join("half.vdb");
@@ -861,7 +861,7 @@ fn cpp_reads_rust_files() {
     let dir = scratch_dir("cpp_interop");
     let mut half = sample_grids();
     for g in half.iter_mut() {
-        vdb::with_any_grid!(g, g => g.set_save_float_as_half(true));
+        pyrite_vdb::with_any_grid!(g, g => g.set_save_float_as_half(true));
     }
     let mut cases = Vec::new();
     for (k, opts) in all_options().iter().enumerate() {

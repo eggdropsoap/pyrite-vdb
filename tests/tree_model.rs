@@ -3,8 +3,8 @@
 #![allow(clippy::manual_is_multiple_of, unknown_lints)]
 
 use std::collections::HashMap;
-use vdb::math::{Coord, CoordBBox};
-use vdb::tree::{FloatTree, Node};
+use pyrite_vdb::math::{Coord, CoordBBox};
+use pyrite_vdb::tree::{FloatTree, Node};
 
 /// Small deterministic PRNG (xorshift64*).
 struct Rng(u64);

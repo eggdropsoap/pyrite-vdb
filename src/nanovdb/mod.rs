@@ -27,8 +27,8 @@
 //!   ([`primitives`]).
 //!
 //! ```
-//! use vdb::prelude::*;
-//! use vdb::nanovdb::{create_nano_grid, NanoGrid};
+//! use pyrite_vdb::prelude::*;
+//! use pyrite_vdb::nanovdb::{create_nano_grid, NanoGrid};
 //!
 //! let mut grid = FloatGrid::new(0.0);
 //! grid.set_value(&Coord::new(1, 2, 3), 1.5);

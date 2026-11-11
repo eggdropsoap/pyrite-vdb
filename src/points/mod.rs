@@ -13,8 +13,8 @@
 //! * Index iteration with filters ([`IndexIter`], [`IndexFilter`]).
 //!
 //! ```
-//! use vdb::math::{Transform, Vec3f};
-//! use vdb::points::{self, Codec, PointLeaf};
+//! use pyrite_vdb::math::{Transform, Vec3f};
+//! use pyrite_vdb::points::{self, Codec, PointLeaf};
 //!
 //! let positions = vec![Vec3f::new(0.0, 1.0, 0.0), Vec3f::new(1.5, 3.5, 1.0), Vec3f::new(-1.0, 6.0, -2.0)];
 //! let transform = Transform::linear(0.5);

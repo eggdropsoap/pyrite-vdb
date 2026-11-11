@@ -52,8 +52,8 @@ C++ library (OpenVDB 10) on identical inputs, and file I/O is also verified agai
 OpenVDB 13.1.
 
 ```rust
-use vdb::prelude::*;
-use vdb::tools::level_set_sphere::create_level_set_sphere;
+use pyrite_vdb::prelude::*;
+use pyrite_vdb::tools::level_set_sphere::create_level_set_sphere;
 
 // A narrow-band level set of a sphere: radius 1, centered at the origin,
 // voxel size 0.05, half-width 3 voxels.
@@ -61,7 +61,7 @@ let sphere: FloatGrid = create_level_set_sphere(1.0, Vec3f::zero(), 0.05, 3.0, t
 println!("{} active voxels", sphere.active_voxel_count());
 
 vdb::io::write_file("sphere.vdb", &[sphere.into()], &MetaMap::new())?;
-let (_meta, grids) = vdb::io::read_file("sphere.vdb")?;
+let (_meta, grids) = pyrite_vdb::io::read_file("sphere.vdb")?;
 ```
 
 ### Cargo features

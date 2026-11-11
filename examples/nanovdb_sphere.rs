@@ -3,11 +3,11 @@
 //!
 //! Run with `cargo run --release --example nanovdb_sphere [out.nvdb]`.
 
-use vdb::math::Vec3d;
-use vdb::nanovdb::hdda::{zero_crossing, Ray};
-use vdb::nanovdb::io::{self, Codec};
-use vdb::nanovdb::primitives::create_level_set_sphere;
-use vdb::nanovdb::sampler::TrilinearSampler;
+use pyrite_vdb::math::Vec3d;
+use pyrite_vdb::nanovdb::hdda::{zero_crossing, Ray};
+use pyrite_vdb::nanovdb::io::{self, Codec};
+use pyrite_vdb::nanovdb::primitives::create_level_set_sphere;
+use pyrite_vdb::nanovdb::sampler::TrilinearSampler;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let path = std::env::args()

@@ -11,9 +11,9 @@
 //! The scheme is selected at run time through the [`DScheme`] and [`DDScheme`] enums.
 //!
 //! ```
-//! use vdb::math::finite_difference::{d1, DScheme, AccessorAt};
-//! use vdb::prelude::*;
-//! use vdb::tree::FloatTree;
+//! use pyrite_vdb::math::finite_difference::{d1, DScheme, AccessorAt};
+//! use pyrite_vdb::prelude::*;
+//! use pyrite_vdb::tree::FloatTree;
 //! let mut tree = FloatTree::new(0.0);
 //! for i in -3..=3 {
 //!     tree.set_value(&Coord::new(i, 0, 0), (i * i) as f32);
