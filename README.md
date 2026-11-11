@@ -1,4 +1,47 @@
-# vdb
+# Pyrite VDB
+
+A Rusty port of OpenVDB and NanoVDB.
+
+Pyrite VDB is a fork of [OpenVDB-rs][openvdb-rs], with the initial goal of overhauling the API surface from heavily C++-accented Rust into idiomatic and ergonomic Rust.
+
+[Pyrite](https://en.wikipedia.org/wiki/Pyrite) is a sulphur oxidate of iron with large cubic crystals and a gold-like lustre. It seemed fitting.
+
+## VDB: Sparse volumes for every occasion
+
+**VDB** is a sparse volumetric tree data structure and algorithms initially detailed in [Museth (2013), "VDB: High-resolution sparse volumes with dynamic topology"][museth-2013], originally developed to improve on volumetric data structures used in the animated film industry. If you've seen a computer-animated film in the last decade, you've likely seen VDB in action.
+
+The data structure is designed for efficient memory footprint, dynamic topology, and a practically unbounded index space, with fast (amortized O(1) time complexity) reads, writes, insertions, and deletions under random-access, sequential, and stencil access patterns. VDB's suite of algorithms support efficient operations on level sets, signed distance fields, and density volumes for a variety of applications: accelerated ray marching, scan conversion, meshing, constructive solid geometry, animation, numerical analysis and simulation.
+
+The [paper][museth-2013] is really worth a read.
+
+  [museth-2013]: https://dl.acm.org/doi/10.1145/2487228.2487235
+
+## Pyrite VDB's lineage
+
+* [**OpenVDB**][openvdb] is the evolving family of C++ implementations of the original VDB data structure and algorithms.
+    * [**NanoVDB**][nanovdb] is the linearized, pointer-free, GPU-memory-friendly variant of the OpenVDB data structure developed by Ken Museth while at Nvidia.
+* [**OpenVDB-rs**][openvdb-rs] is the "faithful cover" version of OpenVDB and NanoVDB's C++ implementations, reimplemented in Rust by co-authors [Philippe Llerena](https://github.com/doubleailes) and [Claude Code](https://github.com/claude). This is for the most part a straight port of the bulk of the C++ implementation, and therefore largely shares the original's C++-flavoured code structure and API.
+* **Pyrite VDB** is this fork of Llerena & Claude's Rust translation.
+
+  [openvdb]: https://github.com/AcademySoftwareFoundation/openvdb
+  [nanovdb]: https://github.com/AcademySoftwareFoundation/openvdb/tree/master/nanovdb/nanovdb
+  [openvdb-rs]: https://github.com/OxidePicturesAlliance/vdb
+
+## A modest todo list
+
+In no particular order:
+
+- [ ] Overhaul API surface into idiomatic Rust
+- [ ] Full docs coverage
+- [ ] Deduplication of code via expanded Trait usage
+- [ ] Absorb `tools` module into the types: associate, member, and Trait functions instead of bare functions
+- [ ] Strongly-typed algorithms interface
+- [ ] Pure Rust tests
+- [ ] Attempt transition to dual-licensing MIT & Apache 2.0 [for the usual very good reasons](https://bevy.org/learn/quick-start/plugin-development/#licensing)
+
+# Original OpenVDB-rs README
+
+## vdb
 
 A Rust port of [OpenVDB](https://github.com/AcademySoftwareFoundation/openvdb), the sparse
 volumetric data structure and toolset used throughout film VFX.
@@ -21,7 +64,7 @@ vdb::io::write_file("sphere.vdb", &[sphere.into()], &MetaMap::new())?;
 let (_meta, grids) = vdb::io::read_file("sphere.vdb")?;
 ```
 
-## Cargo features
+### Cargo features
 
 All features are on by default.
 
@@ -41,7 +84,7 @@ vdb = { version = "0.1", default-features = false, features = ["read"] }
 Without `read` and `write` the `io` module is not built and the `flate2` and `lz4_flex`
 dependencies are not pulled in.
 
-## What's ported
+### What's ported
 
 | Area | Rust module | Notes |
 |------|-------------|-------|
@@ -70,7 +113,7 @@ dependencies are not pulled in.
 **Known gaps:** the frustum point rasterizer, delayed loading and memory-mapped files, interrupters, non-standard tree
 configurations (tools assume the standard 5-4-3 tree).
 
-## Examples
+### Examples
 
 ```sh
 cargo run --release --example vdb_print -- -l tests/data/sphere.vdb   # like OpenVDB's vdb_print
@@ -80,7 +123,7 @@ cargo run --release --example ray_trace_sphere                         # writes 
 cargo run --release --example nanovdb_sphere
 ```
 
-## Testing
+### Testing
 
 ```sh
 cargo test
@@ -100,7 +143,7 @@ The C++ programs that produced the reference data are in `tests/data/cpp/`. With
 built, `VDB_REF=<path to vdb_ref> cargo test --test io -- --ignored` also checks that C++
 reads every file the Rust writer produces.
 
-## Benchmarks
+### Benchmarks
 
 `benches/compare.sh` runs the same operations with this crate and with C++ OpenVDB 10 and
 prints a comparison table; see [`benches/README.md`](benches/README.md) for the benchmark list
@@ -162,7 +205,7 @@ runs; the geometric means are more reliable. Benchmarks run on their own (with a
 are also slower than in a full run, because their memory comes fresh from the operating
 system, so compare full runs of `benches/compare.sh`.
 
-## License
+### License
 
 MIT (see `LICENSE`). OpenVDB itself is licensed under Apache-2.0 / MPL-2.0; this is an
 independent port.
