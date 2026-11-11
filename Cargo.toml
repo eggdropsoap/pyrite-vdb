@@ -2,10 +2,16 @@
 name = "pyrite-vdb"
 version = "0.1.0"
 edition = "2021"
+license-file = "LICENSE"
 description = "A Rusty port of OpenVDB and NanoVDB: sparse volumetric data trees and algorithms"
-license = "MIT"
+homepage = "https://github.com/eggdropsoap/pyrite-vdb.git"
 repository = "https://github.com/eggdropsoap/pyrite-vdb.git"
-exclude = ["pixi.toml", "pixi.lock"]
+readme = "README.md"
+exclude = [
+    "pixi.toml",
+    "pixi.lock",
+    "benches",
+    "tests"]
 
 [features]
 default = ["read", "write", "nanovdb"]
