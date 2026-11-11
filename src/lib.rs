@@ -1,6 +1,6 @@
-//! # vdb — a Rust port of OpenVDB
+//! # Pyrite VDB — a Rusty port of OpenVDB and NanoVDB
 //!
-//! OpenVDB is a library for efficiently storing and manipulating sparse volumetric data
+//! OpenVDB is a C++ library for efficiently storing and manipulating sparse volumetric data
 //! on three-dimensional grids. This crate ports its core:
 //!
 //! * [`math`] — vectors, coordinates, bounding boxes, matrices, maps and transforms
